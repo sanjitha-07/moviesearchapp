@@ -120,16 +120,13 @@
 // }
 
 // export default App
-// develop a react based movie search applictaion using the OMDB API(https://www.omdbapi.com/) to retrieve and display movie informationi inclluding titles,posters,releases years ,generes,directors,rating wards.imlement search,filtering,pagination in dashboard..build avery simple black and white react apllictaion to put n app.jsx
 
 
 
 
 import { useState } from "react";
-
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = "";
 const API_URL = "https://www.omdbapi.com/";
-
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
@@ -137,19 +134,16 @@ export default function App() {
   const [year, setYear] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("");
-
   async function searchMovies(searchText = query, pageNo = 1) {
     if (!searchText.trim()) {
       setError("Please enter a movie name.");
       return;
     }
-
     setLoading(true);
     setError("");
     setMovies([]);
-
     try {
       const url =
         `${API_URL}?apikey=${API_KEY}` +
@@ -160,7 +154,6 @@ export default function App() {
       const data = await response.json();
 
       if (data.Response === "True") {
-        // Get detailed information for each movie.
         const details = await Promise.all(
           data.Search.map(async (movie) => {
             const result = await fetch(
@@ -366,14 +359,7 @@ export default function App() {
         </div>
       )}
 
-      <footer
-        style={{
-          textAlign: "center",
-          borderTop: "1px solid #ddd",
-          marginTop: 40,
-          paddingTop: 20,
-        }}
-      >
+    
         <p>Movie Search Dashboard | Powered by OMDb API</p>
       </footer>
     </div>
